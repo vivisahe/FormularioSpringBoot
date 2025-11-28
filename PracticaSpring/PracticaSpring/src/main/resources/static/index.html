@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Practica</h1>
+
+<form id="saludoForm">
+    <h2>Inicio sesión</h2>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" >
+    </div>
+    <div>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido">
+    </div>
+    <div>
+        <label for="usuario">Usuario:</label>
+        <input for="text" id="usuario" name="usuario">
+    </div>
+    <div>
+        <label for="contarseña">Contraseña:</label>
+        <input for="password" id="contarseña" name="contraseña">
+    </div>
+    <br>
+    <div id="mensaje"></div>
+    <div>
+        <button type="submit">Enviar</button>
+    </div>
+
+</form>
+<h3>Respuesta del servidor:</h3>
+<p id="respuesta"></p>
+
+<script>
+    let form = document.getElementById("saludoForm");
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const mensaje = document.getElementById("mensaje");
+
+        const datos = {
+            nombre: document.getElementById("nombre").value.trim(),
+            apellido: document.getElementById("apellido").value.trim(),
+            usuario: document.getElementById("usuario").value.trim(),
+            contraseña: document.getElementById("contarseña").value.trim()
+        };
+
+        if (!datos.nombre || !datos.apellido || !datos.usuario || !datos.contraseña){
+            mensaje.textContent="Llena todos los campos";
+            return;
+        }
+        const respuesta = await fetch("/saludo", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        });
+
+        const respuestaJson = await respuesta.json();
+        document.getElementById("respuesta").textContent = respuestaJson.mensaje;
+    });
+</script>
+</body>
+</html>

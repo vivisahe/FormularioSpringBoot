@@ -1,0 +1,17 @@
+body{
+    text-align: center;
+}
+form{
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgb(0,0,0,0.2);
+    width: 300px;
+    margin: 20px auto;
+}
+label{
+display: block;
+    margin-top: 10px;
+    font-weight: bold;
+
+}
